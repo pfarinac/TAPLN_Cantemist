@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# carpetas de datasets como dev-set
+dev-set1/
+dev-set2/
+test-set/
+train-set/
