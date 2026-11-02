@@ -1,0 +1,93 @@
+# Análisis NER · dev-set2
+
+Estricto (span exacto): P=0.8176 R=0.8628 F1=0.8396 | TP=2295 FP=512 FN=365
+Relajado (cualquier solape): P=0.9145 R=0.9665 F1=0.9398
+  -> la diferencia entre estricto y relajado son errores de FRONTERA; lo que queda en el relajado son menciones no detectadas o inventadas.
+
+## Falsos negativos (365)
+  frontera: pred más corta que gold          158 (43.3%)
+  frontera: pred más larga que gold          113 (31.0%)
+  no detectada                                89 (24.4%)
+  frontera: solape parcial                     5 (1.4%)
+
+## Falsos positivos (512)
+  inventada (sin solape con gold)            240 (46.9%)
+  frontera: pred más corta que gold          199 (38.9%)
+  frontera: pred más larga que gold           69 (13.5%)
+  frontera: solape parcial                     4 (0.8%)
+
+## Recall estricto por longitud de mención (palabras)
+  1    n= 1382  recall=0.9450
+  2    n=  538  recall=0.8197
+  3-4  n=  410  recall=0.8439
+  5+   n=  330  recall=0.6121
+
+## Recall estricto según si la mención aparece (en minúsculas) en train
+  vista en train     n= 1933  recall=0.9333
+  NO vista en train  n=  727  recall=0.6754
+
+## Top 15 FN (mención gold no encontrada exactamente)
+     7  'metástasis'
+     5  'masa paravertebral'
+     4  'adenocarcinoma'
+     4  'tumor'
+     4  'síndrome de lynch'
+     3  'carcinoma'
+     3  'carcinoma papilar de tiroides'
+     3  'nódulo pulmonar'
+     3  'masa mediastínica'
+     3  'lesiones pulmonares'
+     3  'nódulos pulmonares'
+     3  'enfermedad secundaria'
+     3  'masa pancreática'
+     2  'cdi'
+     2  'melanoma'
+
+## Top 15 FP (predicción que no es gold)
+    10  'lesiones'
+     9  'adenocarcinoma'
+     7  'metástasis'
+     6  'nódulos pulmonares'
+     6  'masa pélvica'
+     6  'lesión'
+     6  'tumoración'
+     5  'nódulo'
+     5  'tumoral'
+     5  'masa de partes blandas'
+     4  'tumor'
+     4  'carcinoma'
+     4  'masa'
+     4  'lesión hepática'
+     4  'tumor neuroendocrino'
+
+## Códigos eCIE-O con más FN (enlaza con la subtarea NORM)
+  8000/6     FN= 130 de  861  (recall 0.849)
+  8000/3     FN=   9 de  144  (recall 0.938)
+  8140/6     FN=   8 de   34  (recall 0.765)
+  8000/1     FN=   8 de  502  (recall 0.984)
+  8310/3     FN=   5 de   14  (recall 0.643)
+  8230/3     FN=   5 de    5  (recall 0.000)
+  8041/6     FN=   5 de    9  (recall 0.444)
+  8140/3     FN=   4 de   64  (recall 0.938)
+  8140/32    FN=   4 de   11  (recall 0.636)
+  8010/6     FN=   4 de   21  (recall 0.810)
+
+## 8 ejemplos de FN con contexto
+  [cc_onco1007] ...nto, nos encontramos ante el caso de un [[sarcoma de Kaposi]] clásico del adulto, confirmado por estu...
+  [cc_onco1009] ...ima cantidad de líquido libre. TC CTAP: [[adenopatías supraclaviculares]] izquierdas de 3 cm, supradiafragmáticas...
+  [cc_onco1010] ...tico diferencial debería plantearse con [[tumoraciones]] primarias tiroideas con metástasis a ni...
+  [cc_onco1010] ...on tumoraciones primarias tiroideas con [[metástasis]] a nivel de ganglios mediastínicos y par...
+  [cc_onco1010] ...uierdo: positivo para células malignas. [[Carcinoma]] tiroideo con características sugestivas...
+  [cc_onco1010] ...oideo con características sugestivas de [[carcinoma poco diferenciado]] (Bethesda VI). El tumor expresa querati...
+  [cc_onco1011] ...ar ni derrame pericárdico.  Diagnóstico [[TGNS]] subtipo seno endodérmico de primario ov...
+  [cc_onco1012] ...arcinoma ductal infiltrante tipo común ([[CDI]]) grado 3 pT2N1b con receptores hormonal...
+
+## 8 ejemplos de FP con contexto
+  [cc_onco1007] ...nto, nos encontramos ante el caso de un [[sarcoma de Kaposi clásico del adulto]], confirmado por estudio anatomopatológi...
+  [cc_onco1008] ...que muestra adenopatías mediastínicas y [[nódulos milimétricos pulmonares]] bilaterales y esplénicos múltiples de n...
+  [cc_onco1008] ...queales, superiores al cm. Aparición de [[nódulos pulmonares milimétricos]] bilaterales, y múltiples nódulos esplén...
+  [cc_onco1008] ...s milimétricos bilaterales, y múltiples [[nódulos esplénicos]] de nueva aparición sin poder descartar ...
+  [cc_onco1008] ...ión sin poder descartar metástasis. Dos [[micronódulos hepáticos]] compatibles con quistes. Analítica (24/...
+  [cc_onco1008] ...tima y tratado con QT de primera línea. [[Micronódulos pulmonares]] y esplénicos compatibles con sarcoidosi...
+  [cc_onco1008] ...ría radiológica con desaparición de las [[lesiones esplénicas]] y reducción del tamaño de los nódulos p...
+  [cc_onco1008] ...splénicas y reducción del tamaño de los [[nódulos pulmonares]] y adenopatías mediastínicas. La pacient...
