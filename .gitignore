@@ -2,6 +2,8 @@
 __pycache__/
 *.py[codz]
 *$py.class
+.DS_Store
+
 
 # C extensions
 *.so
@@ -218,6 +220,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# carpetas de datasets como dev-set
+dev-set1/
+dev-set2/
+test-set/
+train-set/
+
+# carpetas de datasets como dev-set
+dev-set1/
+dev-set2/
+test-set/
+train-set/
 
 *.ann
 
